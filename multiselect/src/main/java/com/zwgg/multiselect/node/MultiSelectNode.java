@@ -9,6 +9,7 @@ import com.zwgg.multiselect.event.TreeNodeEvent;
  * Date: 2017/10/17
  * Time: 14:55
  * 多层级复选树节点类 - 具有多选和展开功能，并可以添加viewModel
+ * 注：选择具有递归性，而展开无递归性
  */
 
 public class MultiSelectNode<T> extends SimpleTreeNode<MultiSelectNode<T>, MultiSelectEvent> {
@@ -28,14 +29,15 @@ public class MultiSelectNode<T> extends SimpleTreeNode<MultiSelectNode<T>, Multi
     /**
      * 事件处理方法
      *
-     * @param event 事件
+     * @param event 传递得到的事件
      */
     @Override
     public void onEvent(MultiSelectEvent event) {
         switch (event.getNotifyType()) {
             case TreeNodeEvent.NOTIFY_CHILDREN:
-                // 父节点通知子节点改变自身状态
+                // 父节点通知子节点改变选择状态
                 if (event.getEventType() == MultiSelectEvent.EVENT_SET_SELECTED) {
+                    // 如果子节点选择状态有变，则继续通知下层节点改变状态
                     if (event.isSelected() != isSelected()) {
                         setSelected(event.isSelected());
                         notifyChildren(event);
@@ -43,14 +45,17 @@ public class MultiSelectNode<T> extends SimpleTreeNode<MultiSelectNode<T>, Multi
                 }
                 break;
             case TreeNodeEvent.NOTIFY_PARENT:
+                // 子节点选择状态更改，则通知父节点重新根据所有子节点设置自身状态
                 if (event.getEventType() == MultiSelectEvent.EVENT_SET_SELECTED) {
                     if (recheckSelected() != isSelected()) {
                         setSelected(!isSelected());
+                        // 如果父节点有变，则继续递归通知
                         notifyParent(event);
                     }
                 }
                 break;
             case TreeNodeEvent.NOTIFY_BROTHER:
+                // 通知兄弟节点改变扩展状态
                 if (event.getEventType() == MultiSelectEvent.EVENT_SET_EXPAND) {
                     if (event.isExpand() != isExpand()) {
                         setExpand(event.isExpand());

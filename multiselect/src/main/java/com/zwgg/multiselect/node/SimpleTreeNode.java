@@ -11,17 +11,20 @@ import java.util.List;
  * Date: 2017/10/16
  * Time: 10:35
  * 简单的树节点模板类
- * 这个泛型可能有点费解，其实就是自限定泛型：用于以基类导出类作为自身的泛型，以实现模板功能
- * @see Enum
+ * 这个自限定泛型可能有点费解：用于以基类导出类作为自身的泛型，以实现模板功能
  * 例如：ClassNameA extend SimpleTreeNode< ClassNameA , T >
+ * @see Enum
  */
 
 public abstract class SimpleTreeNode<K extends SimpleTreeNode<K, T>, T extends TreeNodeEvent> {
 
+    //层级
     protected int hierarchy;
 
+    //父节点
     protected K parent = null;
 
+    //子节点
     protected final List<K> children = new ArrayList<>();
 
     public SimpleTreeNode() {
@@ -57,7 +60,10 @@ public abstract class SimpleTreeNode<K extends SimpleTreeNode<K, T>, T extends T
         this.hierarchy = hierarchy;
     }
 
-
+    /**
+     * 通知父节点
+     * @param event event
+     */
     public void notifyParent(T event) {
         if (parent != null) {
             event.setNotifyType(TreeNodeEvent.NOTIFY_PARENT);
@@ -65,6 +71,10 @@ public abstract class SimpleTreeNode<K extends SimpleTreeNode<K, T>, T extends T
         }
     }
 
+    /**
+     * 通知子节点
+     * @param event event
+     */
     public void notifyChildren(T event) {
         event.setNotifyType(TreeNodeEvent.NOTIFY_CHILDREN);
         for (K child : children) {
@@ -72,6 +82,10 @@ public abstract class SimpleTreeNode<K extends SimpleTreeNode<K, T>, T extends T
         }
     }
 
+    /**
+     * 通知兄弟节点 - 需要具有相同的Parent
+     * @param event event
+     */
     public void notifyBrother(T event) {
         if (parent != null) {
             event.setNotifyType(TreeNodeEvent.NOTIFY_BROTHER);

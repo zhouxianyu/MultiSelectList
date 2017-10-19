@@ -12,6 +12,7 @@ public class MultiSelectEvent extends TreeNodeEvent {
     public static final int EVENT_SET_SELECTED = 1;
     public static final int EVENT_SET_EXPAND = 2;
 
+    //事件类型
     private int eventType;
     private boolean isSelected;
     private boolean isExpand;
