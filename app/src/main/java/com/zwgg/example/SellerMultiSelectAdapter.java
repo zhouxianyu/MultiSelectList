@@ -19,18 +19,15 @@ import com.zwgg.multiselect.node.MultiSelectNode;
 
 public class SellerMultiSelectAdapter extends MultiSelectAdapter<SellerViewModel> {
 
-    public static final int GROUP = 1;
-    public static final int MEMBER = 2;
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == 0 || viewType == 1) {
             return new TitleViewHolder(parent);
-        } else if (viewType == SellerMultiSelectAdapter.MEMBER) {
+        } else if (viewType == 2) {
             return new ItemViewHolder(parent);
         }
         return null;
-//        return new TitleViewHolder(parent);
     }
 
     @Override
@@ -72,7 +69,6 @@ public class SellerMultiSelectAdapter extends MultiSelectAdapter<SellerViewModel
 //                    if (seekBarVisible.isChecked()) {
 //                        itemData.setOtherGroupsExpand(false);
 //                    }
-//                    itemData.setChildrenExpand(seekBarVisible.isChecked());
                     notifyDataSetChanged();
                 }
             });

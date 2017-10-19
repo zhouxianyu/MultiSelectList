@@ -15,16 +15,26 @@ public class MultiSelectNode<T> extends SimpleTreeNode<MultiSelectNode<T>, Multi
 
     private boolean isSelected;
     private boolean isExpand;
+    // 依附节点的viewModel
     private T viewModel;
 
+    /**
+     * @param hierarchy 层级 - 用于产生viewType
+     */
     public MultiSelectNode(int hierarchy) {
         super(hierarchy);
     }
 
+    /**
+     * 事件处理方法
+     *
+     * @param event 事件
+     */
     @Override
     public void onEvent(MultiSelectEvent event) {
         switch (event.getNotifyType()) {
             case TreeNodeEvent.NOTIFY_CHILDREN:
+                // 父节点通知子节点改变自身状态
                 if (event.getEventType() == MultiSelectEvent.EVENT_SET_SELECTED) {
                     if (event.isSelected() != isSelected()) {
                         setSelected(event.isSelected());
@@ -52,24 +62,43 @@ public class MultiSelectNode<T> extends SimpleTreeNode<MultiSelectNode<T>, Multi
         }
     }
 
+    /**
+     * 兄弟节点关闭扩展
+     *
+     * @param isExpand 是否扩展
+     */
     public void setOtherGroupsExpand(boolean isExpand) {
         MultiSelectEvent event = new MultiSelectEvent(MultiSelectEvent.EVENT_SET_EXPAND);
         event.setExpand(isExpand);
         notifyBrother(event);
     }
 
-
+    /**
+     * 父节点重新检查选择状态
+     * 注：选择具有递归性，如果父类状态有变会继续通知父类
+     */
     public void setParentRecheckSelected() {
         MultiSelectEvent event = new MultiSelectEvent(MultiSelectEvent.EVENT_SET_SELECTED);
         notifyParent(event);
     }
 
+    /**
+     * 设置子节点的选择状态
+     * 注：选择具有递归性，会设置所有孩子以及孩子的孩子状态
+     *
+     * @param isSelected 是否选择
+     */
     public void setChildrenSelected(boolean isSelected) {
         MultiSelectEvent event = new MultiSelectEvent(MultiSelectEvent.EVENT_SET_SELECTED);
         event.setSelected(isSelected);
         notifyChildren(event);
     }
 
+    /**
+     * 根据子节点设置自身状态
+     *
+     * @return isSelected boolean
+     */
     public boolean recheckSelected() {
         for (MultiSelectNode child : children) {
             if (!child.isSelected()) {
