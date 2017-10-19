@@ -8,7 +8,7 @@ import com.zwgg.multiselect.event.TreeNodeEvent;
  * Author: ZhouWei
  * Date: 2017/10/17
  * Time: 14:55
- * 多层级复选树节点
+ * 多层级复选树节点类 - 具有多选和展开功能，并可以添加viewModel
  */
 
 public class MultiSelectNode<T> extends SimpleTreeNode<MultiSelectNode<T>, MultiSelectEvent> {
@@ -84,7 +84,6 @@ public class MultiSelectNode<T> extends SimpleTreeNode<MultiSelectNode<T>, Multi
         return isExpand;
     }
 
-
     public void setExpand(boolean expand) {
         isExpand = expand;
     }
@@ -96,7 +95,6 @@ public class MultiSelectNode<T> extends SimpleTreeNode<MultiSelectNode<T>, Multi
     public void setSelected(boolean selected) {
         isSelected = selected;
     }
-
 
     public T getViewModel() {
         return viewModel;

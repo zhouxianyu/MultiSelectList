@@ -12,31 +12,37 @@ import java.util.List;
  * Author: ZhouWei
  * Date: 2017/10/19
  * Time: 15:44
+ * 多层节点adapter
+ * 主要重写getItem与getItemCount实现成员隐藏功能
  */
 
 public abstract class MultiSelectAdapter<T> extends RecyclerView.Adapter {
 
-    private final List<MultiSelectNode<T>> groups = new ArrayList<>();
+    // 最外层的节点
+    private final List<MultiSelectNode<T>> topGroups = new ArrayList<>();
 
     public void setData(MultiSelectNode<T> parent) {
-        groups.clear();
-        if (parent != null) {
-            groups.add(parent);
-        }
-        notifyDataSetChanged();
+        topGroups.clear();
+        addData(parent);
     }
 
     public void setData(List<MultiSelectNode<T>> list) {
-        groups.clear();
+        topGroups.clear();
+        addData(list);
+    }
+
+    public void addData(List<MultiSelectNode<T>> list) {
         if (list != null) {
-            groups.addAll(list);
+            topGroups.addAll(list);
         }
         notifyDataSetChanged();
     }
 
-    public MultiSelectNode<T> getItem(int position) {
-        int[] cur = {position};
-        return getNode(groups, cur);
+    public void addData(MultiSelectNode<T> parent) {
+        if (parent != null) {
+            topGroups.add(parent);
+        }
+        notifyDataSetChanged();
     }
 
     @Override
@@ -46,11 +52,25 @@ public abstract class MultiSelectAdapter<T> extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return getTreeSize(groups);
+        return getTreeSize(topGroups);
     }
 
+    /**
+     * 获取指定位置的data
+     * @param position itemPosition
+     * @return MultiSelectNode or null
+     */
+    public MultiSelectNode<T> getItem(int position) {
+        int[] cur = {position};
+        return getNode(topGroups, cur);
+    }
 
-    public int getTreeSize(List<MultiSelectNode<T>> nodes) {
+    /**
+     * 先序遍历 - 获取展示的总长度 （isExpand = true）
+     * @param nodes nodes
+     * @return int
+     */
+    protected int getTreeSize(List<MultiSelectNode<T>> nodes) {
         int size = 0;
         for (MultiSelectNode<T> node : nodes) {
             size++;
@@ -62,7 +82,14 @@ public abstract class MultiSelectAdapter<T> extends RecyclerView.Adapter {
     }
 
 
-    public MultiSelectNode<T> getNode(List<MultiSelectNode<T>> nodes, int[] position) {
+    /**
+     * 先序遍历 - 获取指定位置的节点
+     *
+     * @param nodes    nodes
+     * @param position itemPosition 数组只是为了实现手动box实现引用传递
+     * @return MultiSelectNode or null
+     */
+    protected MultiSelectNode<T> getNode(List<MultiSelectNode<T>> nodes, final int[] position) {
         for (MultiSelectNode<T> node : nodes) {
             if (position[0] == 0) {
                 return node;
@@ -77,6 +104,5 @@ public abstract class MultiSelectAdapter<T> extends RecyclerView.Adapter {
         }
         return null;
     }
-
 
 }

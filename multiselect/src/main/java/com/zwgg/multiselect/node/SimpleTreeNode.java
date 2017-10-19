@@ -11,7 +11,7 @@ import java.util.List;
  * Date: 2017/10/16
  * Time: 10:35
  * 简单的树节点模板类
- * 这个泛型可能有点费解，其实就是自限定泛型：以基类导出类作为自身的泛型，以实现模板功能
+ * 这个泛型可能有点费解，其实就是自限定泛型：用于以基类导出类作为自身的泛型，以实现模板功能
  * @see Enum
  * 例如：ClassNameA extend SimpleTreeNode< ClassNameA , T >
  */

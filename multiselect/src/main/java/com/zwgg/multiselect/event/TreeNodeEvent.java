@@ -5,6 +5,7 @@ package com.zwgg.multiselect.event;
  * Author: ZhouWei
  * Date: 2017/10/17
  * Time: 14:58
+ * 简单的通知事件类
  */
 
 public class TreeNodeEvent {
