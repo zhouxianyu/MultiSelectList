@@ -1,4 +1,4 @@
-package com.zwgg.multiselectlist;
+package com.zwgg.example;
 
 import org.junit.Test;
 
