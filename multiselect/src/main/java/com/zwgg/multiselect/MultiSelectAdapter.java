@@ -2,7 +2,7 @@ package com.zwgg.multiselect;
 
 import android.support.v7.widget.RecyclerView;
 
-import com.zwgg.multiselect.node.MultiSelectedNode;
+import com.zwgg.multiselect.node.MultiSelectNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +16,9 @@ import java.util.List;
 
 public abstract class MultiSelectAdapter<T> extends RecyclerView.Adapter {
 
-    private final List<MultiSelectedNode<T>> groups = new ArrayList<>();
+    private final List<MultiSelectNode<T>> groups = new ArrayList<>();
 
-    public void setData(MultiSelectedNode<T> parent) {
+    public void setData(MultiSelectNode<T> parent) {
         groups.clear();
         if (parent != null) {
             groups.add(parent);
@@ -26,7 +26,7 @@ public abstract class MultiSelectAdapter<T> extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
-    public void setData(List<MultiSelectedNode<T>> list) {
+    public void setData(List<MultiSelectNode<T>> list) {
         groups.clear();
         if (list != null) {
             groups.addAll(list);
@@ -34,7 +34,7 @@ public abstract class MultiSelectAdapter<T> extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
-    public MultiSelectedNode<T> getItem(int position) {
+    public MultiSelectNode<T> getItem(int position) {
         int[] cur = {position};
         return getNode(groups, cur);
     }
@@ -50,9 +50,9 @@ public abstract class MultiSelectAdapter<T> extends RecyclerView.Adapter {
     }
 
 
-    public int getTreeSize(List<MultiSelectedNode<T>> nodes) {
+    public int getTreeSize(List<MultiSelectNode<T>> nodes) {
         int size = 0;
-        for (MultiSelectedNode<T> node : nodes) {
+        for (MultiSelectNode<T> node : nodes) {
             size++;
             if (node.isExpand()) {
                 size += getTreeSize(node.getChildren());
@@ -62,14 +62,14 @@ public abstract class MultiSelectAdapter<T> extends RecyclerView.Adapter {
     }
 
 
-    public MultiSelectedNode<T> getNode(List<MultiSelectedNode<T>> nodes, int[] position) {
-        for (MultiSelectedNode<T> node : nodes) {
+    public MultiSelectNode<T> getNode(List<MultiSelectNode<T>> nodes, int[] position) {
+        for (MultiSelectNode<T> node : nodes) {
             if (position[0] == 0) {
                 return node;
             }
             position[0]--;
             if (node.isExpand() && node.getChildren().size() > 0) {
-                MultiSelectedNode<T> finalNode = getNode(node.getChildren(), position);
+                MultiSelectNode<T> finalNode = getNode(node.getChildren(), position);
                 if (finalNode != null) {
                     return finalNode;
                 }

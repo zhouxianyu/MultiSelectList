@@ -1,31 +1,31 @@
 package com.zwgg.multiselect.node;
 
-import com.zwgg.multiselect.event.MultiSelectedEvent;
+import com.zwgg.multiselect.event.MultiSelectEvent;
 import com.zwgg.multiselect.event.TreeNodeEvent;
 
 /**
- * Class: MultiSelectedNode
+ * Class: MultiSelectNode
  * Author: ZhouWei
  * Date: 2017/10/17
  * Time: 14:55
  * 多层级复选树节点
  */
 
-public class MultiSelectedNode<T> extends SimpleTreeNode<MultiSelectedNode<T>, MultiSelectedEvent> {
+public class MultiSelectNode<T> extends SimpleTreeNode<MultiSelectNode<T>, MultiSelectEvent> {
 
     private boolean isSelected;
     private boolean isExpand;
     private T viewModel;
 
-    public MultiSelectedNode(int hierarchy) {
+    public MultiSelectNode(int hierarchy) {
         super(hierarchy);
     }
 
     @Override
-    public void onEvent(MultiSelectedEvent event) {
+    public void onEvent(MultiSelectEvent event) {
         switch (event.getNotifyType()) {
             case TreeNodeEvent.NOTIFY_CHILDREN:
-                if (event.getEventType() == MultiSelectedEvent.EVENT_SET_SELECTED) {
+                if (event.getEventType() == MultiSelectEvent.EVENT_SET_SELECTED) {
                     if (event.isSelected() != isSelected()) {
                         setSelected(event.isSelected());
                         notifyChildren(event);
@@ -33,7 +33,7 @@ public class MultiSelectedNode<T> extends SimpleTreeNode<MultiSelectedNode<T>, M
                 }
                 break;
             case TreeNodeEvent.NOTIFY_PARENT:
-                if (event.getEventType() == MultiSelectedEvent.EVENT_SET_SELECTED) {
+                if (event.getEventType() == MultiSelectEvent.EVENT_SET_SELECTED) {
                     if (recheckSelected() != isSelected()) {
                         setSelected(!isSelected());
                         notifyParent(event);
@@ -41,7 +41,7 @@ public class MultiSelectedNode<T> extends SimpleTreeNode<MultiSelectedNode<T>, M
                 }
                 break;
             case TreeNodeEvent.NOTIFY_BROTHER:
-                if (event.getEventType() == MultiSelectedEvent.EVENT_SET_EXPAND) {
+                if (event.getEventType() == MultiSelectEvent.EVENT_SET_EXPAND) {
                     if (event.isExpand() != isExpand()) {
                         setExpand(event.isExpand());
                     }
@@ -53,25 +53,25 @@ public class MultiSelectedNode<T> extends SimpleTreeNode<MultiSelectedNode<T>, M
     }
 
     public void setOtherGroupsExpand(boolean isExpand) {
-        MultiSelectedEvent event = new MultiSelectedEvent(MultiSelectedEvent.EVENT_SET_EXPAND);
+        MultiSelectEvent event = new MultiSelectEvent(MultiSelectEvent.EVENT_SET_EXPAND);
         event.setExpand(isExpand);
         notifyBrother(event);
     }
 
 
     public void setParentRecheckSelected() {
-        MultiSelectedEvent event = new MultiSelectedEvent(MultiSelectedEvent.EVENT_SET_SELECTED);
+        MultiSelectEvent event = new MultiSelectEvent(MultiSelectEvent.EVENT_SET_SELECTED);
         notifyParent(event);
     }
 
     public void setChildrenSelected(boolean isSelected) {
-        MultiSelectedEvent event = new MultiSelectedEvent(MultiSelectedEvent.EVENT_SET_SELECTED);
+        MultiSelectEvent event = new MultiSelectEvent(MultiSelectEvent.EVENT_SET_SELECTED);
         event.setSelected(isSelected);
         notifyChildren(event);
     }
 
     public boolean recheckSelected() {
-        for (MultiSelectedNode child : children) {
+        for (MultiSelectNode child : children) {
             if (!child.isSelected()) {
                 return false;
             }

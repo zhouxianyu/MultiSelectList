@@ -8,7 +8,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.zwgg.multiselect.MultiSelectAdapter;
-import com.zwgg.multiselect.node.MultiSelectedNode;
+import com.zwgg.multiselect.node.MultiSelectNode;
 
 /**
  * Class: SellerMultiSelectAdapter
@@ -35,7 +35,7 @@ public class SellerMultiSelectAdapter extends MultiSelectAdapter<SellerViewModel
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        final MultiSelectedNode<SellerViewModel> item = getItem(position);
+        final MultiSelectNode<SellerViewModel> item = getItem(position);
         if (holder instanceof ItemViewBinder) {
             ((ItemViewBinder) holder).bindView(item);
         }
@@ -43,7 +43,7 @@ public class SellerMultiSelectAdapter extends MultiSelectAdapter<SellerViewModel
 
     public interface ItemViewBinder {
 
-        void bindView(MultiSelectedNode<SellerViewModel> itemData);
+        void bindView(MultiSelectNode<SellerViewModel> itemData);
 
     }
 
@@ -61,7 +61,7 @@ public class SellerMultiSelectAdapter extends MultiSelectAdapter<SellerViewModel
         }
 
         @Override
-        public void bindView(final MultiSelectedNode<SellerViewModel> itemData) {
+        public void bindView(final MultiSelectNode<SellerViewModel> itemData) {
             textView.setText(itemData.getViewModel().getText());
             seekBarSelected.setChecked(itemData.isSelected());
             seekBarVisible.setChecked(itemData.isExpand());
@@ -103,7 +103,7 @@ public class SellerMultiSelectAdapter extends MultiSelectAdapter<SellerViewModel
         }
 
         @Override
-        public void bindView(final MultiSelectedNode<SellerViewModel> itemData) {
+        public void bindView(final MultiSelectNode<SellerViewModel> itemData) {
             textView.setText(itemData.getViewModel().getText());
             seekBarSelected.setChecked(itemData.isSelected());
             seekBarVisible.setOnClickListener(new View.OnClickListener() {

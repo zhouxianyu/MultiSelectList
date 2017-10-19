@@ -1,13 +1,13 @@
 package com.zwgg.multiselect.event;
 
 /**
- * Class: MultiSelectedEvent
+ * Class: MultiSelectEvent
  * Author: ZhouWei
  * Date: 2017/10/17
  * Time: 17:37
  */
 
-public class MultiSelectedEvent extends TreeNodeEvent {
+public class MultiSelectEvent extends TreeNodeEvent {
 
     public static final int EVENT_SET_SELECTED = 1;
     public static final int EVENT_SET_EXPAND = 2;
@@ -16,10 +16,10 @@ public class MultiSelectedEvent extends TreeNodeEvent {
     private boolean isSelected;
     private boolean isExpand;
 
-    public MultiSelectedEvent() {
+    public MultiSelectEvent() {
     }
 
-    public MultiSelectedEvent(int eventType){
+    public MultiSelectEvent(int eventType){
         this.eventType = eventType;
     }
 
