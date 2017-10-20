@@ -18,7 +18,7 @@ import java.util.List;
 
 public abstract class MultiSelectAdapter<T> extends RecyclerView.Adapter {
 
-    // 最外层的节点
+    // 需要展示的最外层节点
     private final List<MultiSelectNode<T>> topGroups = new ArrayList<>();
 
     public void setData(MultiSelectNode<T> parent) {
@@ -103,10 +103,6 @@ public abstract class MultiSelectAdapter<T> extends RecyclerView.Adapter {
             }
         }
         return null;
-    }
-
-    public MultiSelectAdapter<T> getNode3(List<MultiSelectNode<T>> nodes, Integer i) {
-       return getNode3(nodes.get(0).getChildren(),i);
     }
 
 }
