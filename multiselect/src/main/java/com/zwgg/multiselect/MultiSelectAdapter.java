@@ -86,7 +86,7 @@ public abstract class MultiSelectAdapter<T> extends RecyclerView.Adapter {
      * 先序遍历 - 获取指定位置的节点
      *
      * @param nodes    nodes
-     * @param position itemPosition 数组只是为了实现手动box实现引用传递
+     * @param position itemPosition 数组只是为了实现手动box实现共享position
      * @return MultiSelectNode or null
      */
     protected MultiSelectNode<T> getNode(List<MultiSelectNode<T>> nodes, final int[] position) {
@@ -103,6 +103,10 @@ public abstract class MultiSelectAdapter<T> extends RecyclerView.Adapter {
             }
         }
         return null;
+    }
+
+    public MultiSelectAdapter<T> getNode3(List<MultiSelectNode<T>> nodes, Integer i) {
+       return getNode3(nodes.get(0).getChildren(),i);
     }
 
 }

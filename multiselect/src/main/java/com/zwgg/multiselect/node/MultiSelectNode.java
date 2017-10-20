@@ -16,6 +16,7 @@ public class MultiSelectNode<T> extends SimpleTreeNode<MultiSelectNode<T>, Multi
 
     private boolean isSelected;
     private boolean isExpand;
+
     // 依附节点的viewModel
     private T viewModel;
 
@@ -79,7 +80,7 @@ public class MultiSelectNode<T> extends SimpleTreeNode<MultiSelectNode<T>, Multi
     }
 
     /**
-     * 父节点重新检查选择状态
+     * 通知父节点根据子节点设置状态
      * 注：选择具有递归性，如果父类状态有变会继续通知父类
      */
     public void setParentRecheckSelected() {
@@ -88,7 +89,7 @@ public class MultiSelectNode<T> extends SimpleTreeNode<MultiSelectNode<T>, Multi
     }
 
     /**
-     * 设置子节点的选择状态
+     * 通知子节点设置选择状态
      * 注：选择具有递归性，会设置所有孩子以及孩子的孩子状态
      *
      * @param isSelected 是否选择
