@@ -28,16 +28,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        MultiSelectNode<SellerViewModel> node = new MultiSelectNode<>(0);
-        node.setViewModel(new SellerViewModel("总部"));
+        SellerViewModel node = new SellerViewModel("总部", 0);
         node.setExpand(true);
         for (int i = 0; i < 3; i++) {
-            MultiSelectNode<SellerViewModel> node1 = new MultiSelectNode<>(1);
-            node1.setViewModel(new SellerViewModel("部门" + i));
+            SellerViewModel node1 = new SellerViewModel("部门" + i, 1);
             node1.dataBinding(node, node1);
             for (int j = 0; j < 20; j++) {
-                MultiSelectNode<SellerViewModel> node2 = new MultiSelectNode<>(2);
-                node2.setViewModel(new SellerViewModel("员工" + j));
+                SellerViewModel node2 = new SellerViewModel("员工" + j, 2);
                 node2.dataBinding(node1, node2);
             }
         }

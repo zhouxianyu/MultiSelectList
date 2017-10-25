@@ -1,5 +1,7 @@
 package com.zwgg.example;
 
+import com.zwgg.multiselect.node.MultiSelectNode;
+
 /**
  * Class: SellerViewModel
  * Author: ZhouWei
@@ -7,9 +9,10 @@ package com.zwgg.example;
  * Time: 11:05
  */
 
-public class SellerViewModel {
+public class SellerViewModel extends MultiSelectNode<SellerViewModel>{
 
-    public SellerViewModel(String text) {
+    public SellerViewModel(String text,int viewType) {
+        super(viewType);
         this.text = text;
     }
 

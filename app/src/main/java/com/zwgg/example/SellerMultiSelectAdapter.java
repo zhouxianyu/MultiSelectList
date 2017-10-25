@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.zwgg.multiselect.MultiSelectAdapter;
@@ -34,7 +33,7 @@ public class SellerMultiSelectAdapter extends MultiSelectAdapter<SellerViewModel
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        final MultiSelectNode<SellerViewModel> item = getItem(position);
+        final SellerViewModel item = getItem(position);
         if (holder instanceof ItemViewBinder) {
             ((ItemViewBinder) holder).bindView(item);
         }
@@ -42,7 +41,7 @@ public class SellerMultiSelectAdapter extends MultiSelectAdapter<SellerViewModel
 
     public interface ItemViewBinder {
 
-        void bindView(MultiSelectNode<SellerViewModel> itemData);
+        void bindView(SellerViewModel itemData);
 
     }
 
@@ -60,8 +59,8 @@ public class SellerMultiSelectAdapter extends MultiSelectAdapter<SellerViewModel
         }
 
         @Override
-        public void bindView(final MultiSelectNode<SellerViewModel> itemData) {
-            textView.setText(itemData.getViewModel().getText());
+        public void bindView(final SellerViewModel itemData) {
+            textView.setText(itemData.getText());
             if (itemData.getHierarchy() == 0 || itemData.getChildren().size() == 0) {
                 imageView.setVisibility(View.INVISIBLE);
             }
@@ -105,8 +104,8 @@ public class SellerMultiSelectAdapter extends MultiSelectAdapter<SellerViewModel
         }
 
         @Override
-        public void bindView(final MultiSelectNode<SellerViewModel> itemData) {
-            textView.setText(itemData.getViewModel().getText());
+        public void bindView(final SellerViewModel itemData) {
+            textView.setText(itemData.getText());
             checkBox.setChecked(itemData.isSelected());
             checkBox.setOnClickListener(new View.OnClickListener() {
                 @Override

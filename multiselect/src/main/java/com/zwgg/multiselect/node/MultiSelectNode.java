@@ -12,13 +12,10 @@ import com.zwgg.multiselect.event.TreeNodeEvent;
  * 注：选择具有递归性，而展开无递归性
  */
 
-public class MultiSelectNode<T> extends SimpleTreeNode<MultiSelectNode<T>, MultiSelectEvent> {
+public class MultiSelectNode<T extends MultiSelectNode<T>> extends SimpleTreeNode<T, MultiSelectEvent> {
 
     private boolean isSelected;
     private boolean isExpand;
-
-    // 依附节点的viewModel
-    private T viewModel;
 
     /**
      * @param hierarchy 层级 - 用于产生viewType
@@ -129,14 +126,6 @@ public class MultiSelectNode<T> extends SimpleTreeNode<MultiSelectNode<T>, Multi
 
     public void setSelected(boolean selected) {
         isSelected = selected;
-    }
-
-    public T getViewModel() {
-        return viewModel;
-    }
-
-    public void setViewModel(T viewModel) {
-        this.viewModel = viewModel;
     }
 
 }
