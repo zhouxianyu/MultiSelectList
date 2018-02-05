@@ -23,11 +23,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         adapter = new SellerMultiSelectAdapter();
         recyclerView.setAdapter(adapter);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
         SellerViewModel node = new SellerViewModel("总部", 0);
         node.setExpand(true);
         for (int i = 0; i < 3; i++) {
@@ -38,7 +33,13 @@ public class MainActivity extends AppCompatActivity {
                 node2.dataBinding(node1, node2);
             }
         }
-
         adapter.setData(node);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 }
