@@ -6,7 +6,8 @@
 ### 如何使用
 1. 创建Model继承MultiSelectNode
 
-```public class SellerViewModel extends MultiSelectNode<SellerViewModel>{
+```
+public class SellerViewModel extends MultiSelectNode<SellerViewModel>{
 
     public SellerViewModel(String text,int viewType) {
         super(viewType);
